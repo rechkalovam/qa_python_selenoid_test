@@ -5,13 +5,13 @@ on:
       - master
 
 jobs:
-  # Переименуем задачу
   run-selenoid-tests:
     runs-on: ubuntu-latest
     steps:
-      # Первый шаг оставим таким же
       - name: Check out repository code
         uses: actions/checkout@v3
-      # Поднимаем контейнеры и выходим при завершении работы контейнера test_docker
+      # Вставим вторым шагом скачивание нужного контейнера
+      - name: Pull selenoid image
+        run: docker pull selenoid/chrome:128.0
       - name: Run tests in docker
         run: docker compose up --build --exit-code-from test_docker
